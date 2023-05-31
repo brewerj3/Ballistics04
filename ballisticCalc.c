@@ -18,7 +18,7 @@ long double calculateRangeMetric(long double shellDiameterInMeters, long double 
 
     long double currentVelocity = muzzleVelocityMeterPerSecond;
     long double forceOfAirOnShell = 0;
-    long double currentShellAngleRadians = angleOfGunDegree * (3.14159265358979323846 / 180);
+    long double currentShellAngleRadians = angleOfGunDegree * (pie / 180);
     unsigned currentTimeMilliseconds = 0;
 
     // Current Position of Shell
