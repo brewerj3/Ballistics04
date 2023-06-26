@@ -39,6 +39,8 @@ void create_gun() {
 }
 
 void man_main() {
+
+    struct man_port_at_man *host = NULL;
     char cmd;
 
     // Enter Loop
