@@ -11,4 +11,6 @@
 #ifndef BALLISTICS04_HOST_H
 #define BALLISTICS04_HOST_H
 
+void host_main();
+
 #endif //BALLISTICS04_HOST_H

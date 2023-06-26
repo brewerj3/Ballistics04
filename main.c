@@ -7,6 +7,7 @@
 
 #include "man.h"
 #include "net.h"
+#include "host.h"
 
 int main() {
     pid_t pid;
