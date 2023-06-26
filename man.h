@@ -10,6 +10,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef BALLISTICS04_MAN_H
 #define BALLISTICS04_MAN_H
+#define MAN_MSG_LENGTH 1000
 
 /*
  *  The next two structs are ports used to transfer commands
