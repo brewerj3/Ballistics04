@@ -3,6 +3,8 @@
 #include <sys/types.h>
 #include <signal.h>
 
+#include "man.h"
+
 int main() {
     pid_t pid;
 
