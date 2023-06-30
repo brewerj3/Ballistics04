@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "BallisticCalc.h"
+#include "ballisticCalc.h"
 
 const long double gravitationalAcceleration = -9.8;
 const long unsigned passesPerSecond = 1000000;

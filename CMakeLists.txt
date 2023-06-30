@@ -7,3 +7,5 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 add_executable(Ballistics04 main.c
         ballisticCalc.c ballisticCalc.h man.c man.h main.h net.c net.h host.c host.h)
+
+target_link_libraries(Ballistics04 m)
