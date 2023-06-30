@@ -14,6 +14,8 @@
 #include "man.h"
 #include "net.h"
 
+#define TENMILLISEC 10000
+
 char man_get_user_cmd() {
     char cmd;
 
@@ -59,6 +61,14 @@ void create_gun(struct man_port_at_man *host) {
 
     n = sprintf(msg, "c %s %Lf %Lf %Lf", gunName, shellMass, boreDiameter, muzzleVelocity);
     write(host->send_fd, msg, n);
+
+    n = 0;
+    while (n <= 0) {
+        usleep(TENMILLISEC);
+        write(host->recv_fd, reply, MAN_MSG_LENGTH);
+    }
+    reply[n] = '\0';
+    printf("%s\n", reply);
 }
 
 void delete_gun(struct man_port_at_man *host) {
