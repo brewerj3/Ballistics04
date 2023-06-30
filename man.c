@@ -98,7 +98,7 @@ void delete_gun(struct man_port_at_man *host) {
     printf("%s\n", reply);
 }
 
-void list_gun(struct man_port_at_man *host) {
+void list_gun(struct man_port_at_man *host) {   // @TODO Implement list_gun, should make the host send a list of all gun names to manager
     printf("This is not implemented yet\n");
 }
 
