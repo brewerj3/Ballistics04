@@ -27,6 +27,7 @@ char man_get_user_cmd() {
         printf("   (c) Create a new gun and name it\n");
         printf("   (l) List all known host guns\n");
         printf("   (d) Delete a gun by supplying its name\n");
+        printf("   (f) Fire a gun and get its range table\n");
         printf("   (q) Quit\n");
         printf("   Enter Command\n");
         do {
@@ -38,6 +39,7 @@ char man_get_user_cmd() {
             case 'q':
             case 'c':
             case 'd':
+            case 'f':
                 return cmd;
             default:
                 printf("Invalid: you entered %c\n\n", cmd);
@@ -87,7 +89,7 @@ void delete_gun(struct man_port_at_man *host) {
     scanf("%s", gunName);
 
     n = sprintf(msg, "d %s", gunName);      // Format gunName into msg
-    write(host->send_fd, reply, n);
+    write(host->send_fd, msg, n);
 
     n = 0;
     while (n <= 0) {    // Wait for reply from host
@@ -98,8 +100,42 @@ void delete_gun(struct man_port_at_man *host) {
     printf("%s\n", reply);
 }
 
-void list_gun(struct man_port_at_man *host) {   // @TODO Implement list_gun, should make the host send a list of all gun names to manager
-    printf("This is not implemented yet\n");
+void list_gun(struct man_port_at_man *host) {   // Ask host to list all guns
+    char msg[MAN_MSG_LENGTH];
+    char reply[MAN_MSG_LENGTH];
+    int n;
+
+    n = sprintf(msg, "l");          // Format msg
+    write(host->send_fd, msg, n);    // Pipe msg to host
+
+    n = 0;
+    while (n <= 0) {
+        usleep(TENMILLISEC);
+        n = read(host->recv_fd, reply, MAN_MSG_LENGTH);
+    }
+    reply[n] = '\0';
+    printf("%s\n", reply);
+}
+
+void fire_gun(struct man_port_at_man *host) {
+    char msg[MAN_MSG_LENGTH];
+    char reply[MAN_MSG_LENGTH];
+    char gunName[NAME_LENGTH];
+    int n;
+
+    printf("Enter name of gun to fire\n");
+    scanf("%s", gunName);
+
+    n = sprintf(msg, "f %s", gunName);
+    write(host->send_fd, msg, n);
+
+    n = 0;
+    while (n <= 0) {
+        usleep(TENMILLISEC);
+        n = read(host->recv_fd, reply, MAN_MSG_LENGTH);
+    }
+    reply[n] = '\0';
+    printf("%s\n", reply);
 }
 
 void man_main() {
@@ -122,6 +158,9 @@ void man_main() {
                 break;
             case 'l':   // List all the guns the host knows
                 list_gun(host);
+                break;
+            case 'f':
+                fire_gun(host);
                 break;
             case 'q':   // Quit the manager
                 return;
